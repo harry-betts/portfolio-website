@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Betts | Systems & Security</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --accent-primary: #0084ff; /* Cyan glow */
+            --accent-danger: #ff3333; /* Red glow for offensive tools */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glitch/Terminal Header Effect */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+        }
+
+        .title-container h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .title-container h1 span {
+            color: var(--accent-primary);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid var(--accent-primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+            color: var(--accent-primary);
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skills-list li {
+            background-color: var(--surface-color);
+            padding: 0.5rem 1rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .skills-list li:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--surface-color);
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+        }
+
+        .project-card.onyx::before { background-color: var(--accent-danger); }
+        .project-card.kyber::before { background-color: var(--accent-primary); }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card.onyx:hover {
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.1);
+            border-color: rgba(255, 51, 102, 0.3);
+        }
+
+        .project-card.kyber:hover {
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.3);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card.onyx .project-title { color: var(--accent-danger); }
+        .project-card.kyber .project-title { color: var(--accent-primary); }
+
+        .tech-stack {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-stack span {
+            background: #222;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        /* Links */
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-primary);
+        }
+
+        .contact-section {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 4rem 0;
+            border-top: 1px solid #222;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-primary); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .title-container h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="title-container">
+            <h1>Harry <span>Betts</span></h1>
+            <div class="subtitle">
+                <span class="typewriter">> Offensive Security & Systems Engineer_</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="about">
+        <h2>~/about_me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>I'm a Software Engineering student at UTS specializing in low-level systems programming and offensive security research. My primary focus is on developing robust security tooling, exploring encryption methodologies, and analyzing system vulnerabilities.</p>
+                <br>
+                <p>When I'm not studying or building custom infrastructure, I'm deep diving into C/C++ memory management, post-quantum cryptography, and designing scalable architectures.</p>
+            </div>
+            <div class="skills">
+                <ul class="skills-list">
+                    <li>C#</li>
+                    <li>C++</li>
+                    <li>Rust</li>
+                    <li>JavaScript</li>
+                    <li>HTML/CSS</li>
+                    <li>Red Teaming</li>
+                    <li>OPSEC</li>
+                    <li>Malware Analysis</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="projects">
+        <h2>~/projects</h2>
+        <div class="projects-grid">
+            
+            <!-- OnyxRaid Card -->
+            <div class="project-card onyx">
+                <h3 class="project-title">OnyxRaid</h3>
+                <div class="tech-stack">
+                    <span>C++</span>
+                    <span>C#</span>
+                    <span>Networking</span>
+                </div>
+                <p>A fully functioning Command and Control (C2) framework built for offensive security engagements. Designed with stealth and persistence in mind, allowing for secure and stable remote administration.</p>
+                <br>
+                <a href="https://github.com/harry-betts/onyx-raid">[ View Source / Details ]</a>
+            </div>
+
+            <!-- KyberVault Card -->
+            <div class="project-card kyber">
+                <h3 class="project-title">KyberVault</h3>
+                <div class="tech-stack">
+                    <span>C#</span>
+                    <span>Cryptography</span>
+                </div>
+                <p>A highly secure file encryption container application leveraging post-quantum encryption algorithms. Engineered to protect sensitive data against both classical and quantum-based cryptographic attacks.</p>
+                <br>
+                <a href="https://github.com/harry-betts/KyberVault">[ View Source / Details ]</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="contact-section">
+        <h2>~/contacts</h2>
+        <p>Currently open for collaboration and security research opportunities.</p>
+        <div class="contact-links">
+            <a href="mailto:harrybetts06@proton.me">Email</a>
+            <a href="https://github.com/harry-betts">GitHub</a>
+            <a href="https://www.linkedin.com/in/harry-betts-3a065b408 ">LinkedIn</a>
+            <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">Signal</a>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to handle smooth scrolling or add future interactivity
+        console.log("%cWelcome to the console.", "color: #00ffcc; font-size: 14px; font-weight: bold;");
+    </script>
+</body>
+</html>
