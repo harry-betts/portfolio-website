@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +14,14 @@
             --surface-color: #111111;
             --text-main: #e0e0e0;
             --text-muted: #888888;
-            --accent-primary: #0084ff; 
-            --accent-danger: #ff3333; 
-            --accent-tor: #a855f7; 
+            --accent-primary: #0084ff;
+            --accent-danger: #ff3333;
+            /* Reverted back to the original red for the main page */
+            --accent-tor: #a855f7;
+            --accent-modal: #506ecd;
+            /* Dedicated variable just for the modal */
+            scroll-behavior: smooth;
+
         }
 
         * {
@@ -31,7 +37,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
 
         header {
             height: 100vh;
@@ -86,7 +91,6 @@
             color: var(--accent-primary);
         }
 
-
         .about-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -115,7 +119,6 @@
             color: var(--accent-primary);
         }
 
-
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -141,9 +144,17 @@
             height: 2px;
         }
 
-        .project-card.onyx::before { background-color: var(--accent-danger); }
-        .project-card.kyber::before { background-color: var(--accent-primary); }
-        .project-card.onion::before { background-color: var(--accent-tor); }
+        .project-card.onyx::before {
+            background-color: var(--accent-danger);
+        }
+
+        .project-card.kyber::before {
+            background-color: var(--accent-primary);
+        }
+
+        .project-card.onion::before {
+            background-color: var(--accent-tor);
+        }
 
         .project-card:hover {
             transform: translateY(-5px);
@@ -169,9 +180,17 @@
             margin-bottom: 1rem;
         }
 
-        .project-card.onyx .project-title { color: var(--accent-danger); }
-        .project-card.kyber .project-title { color: var(--accent-primary); }
-        .project-card.onion .project-title { color: var(--accent-tor); }
+        .project-card.onyx .project-title {
+            color: var(--accent-danger);
+        }
+
+        .project-card.kyber .project-title {
+            color: var(--accent-primary);
+        }
+
+        .project-card.onion .project-title {
+            color: var(--accent-tor);
+        }
 
         .tech-stack {
             font-size: 0.8rem;
@@ -215,25 +234,236 @@
             font-size: 1.2rem;
         }
 
-
         @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-primary); }
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
         }
 
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: var(--accent-primary);
+            }
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal {
+            background: var(--surface-color);
+            border: 1px solid #222;
+            border-top: 2px solid var(--accent-modal);
+            /* Uses the specific modal color */
+            border-radius: 6px;
+            padding: 2.5rem 2rem 2rem;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(80, 110, 205, 0.1);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-path {
+            font-size: 0.75rem;
+            color: var(--accent-modal);
+            /* Uses the specific modal color */
+            letter-spacing: 0.05em;
+        }
+
+        .modal-path span {
+            color: var(--text-muted);
+        }
+
+        .modal h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-body {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-signal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-qr {
+            background: transparent;
+            padding: 0;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            /* You might want to remove this too if the background is gone */
+            transition: transform 0.3s ease;
+        }
+
+        .modal-qr:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-qr img {
+            display: block;
+            width: 140px;
+            height: 140px;
+        }
+
+        .modal-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .modal-divider-line {
+            flex: 1;
+            height: 1px;
+            background: #333;
+        }
+
+        .modal-divider-text {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .modal-email {
+            display: block;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 0.75rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-email:hover {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            background: rgba(0, 132, 255, 0.05);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-modal);
+            /* Uses the specific modal color */
+        }
 
         @media (max-width: 768px) {
-            .about-grid, .projects-grid {
+
+            .about-grid,
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
-            .title-container h1 { font-size: 2.5rem; }
+
+            .title-container h1 {
+                font-size: 2.5rem;
+            }
+        }
+.scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+        }
+
+        .scroll-indicator a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: -4px; /* Pulls the chevrons closer together */
+        }
+
+.chevron {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+            /* Increased duration from 1.5s to 3s */
+            animation: scan-down 3s infinite; 
+            opacity: 0;
+        }
+
+        /* Spaced out the delays to match the slower cycle */
+        .chevron:nth-child(1) { animation-delay: 0s; }
+        .chevron:nth-child(2) { animation-delay: 0.3s; }
+        .chevron:nth-child(3) { animation-delay: 0.6s; }
+
+        .scroll-indicator a:hover .chevron {
+            border-color: var(--accent-primary);
+        }
+
+        @keyframes scan-down {
+            0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
+            50% { opacity: 1; border-color: var(--accent-primary); }
+            100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -243,17 +473,29 @@
                 <span class="typewriter">> Security & Privacy Engineering_</span>
             </div>
         </div>
+<div class="scroll-indicator">
+        <a href="#about" aria-label="Scroll down">
+            <span class="chevron"></span>
+            <span class="chevron"></span>
+            <span class="chevron"></span>
+        </a>
+    </div>
     </header>
 
     <div class="container" id="about">
         <h2>~/about_me</h2>
         <div class="about-grid">
             <div class="about-text">
-                <p>I'm a Software Engineering student at UTS specializing in low-level systems programming and offensive security research. My primary focus is on developing robust security tooling, exploring encryption methodologies, and analyzing system vulnerabilities.</p>
+                <p>I'm a Software Engineering student at UTS specializing in low-level systems programming and offensive
+                    security research. My primary focus is on developing robust security tooling, exploring encryption
+                    methodologies, and analyzing system vulnerabilities.</p>
                 <br>
-                <p>When I'm not studying or building custom infrastructure, I'm deep diving into C/C++ memory management, post-quantum cryptography, and designing scalable architectures.</p>
+                <p>When I'm not studying or building custom infrastructure, I'm deep diving into C/C++ memory
+                    management, post-quantum cryptography, and designing scalable architectures.</p>
                 <br>
-                <p>As you will see with some of my projects below, I am a strong believer in online privacy and security, and especially related open source projects. I am aiming to contribute significantly in this field in the future.</p>
+                <p>As you will see with some of my projects below, I am a strong believer in online privacy and
+                    security, and especially related open source projects. I am aiming to contribute significantly in
+                    this field in the future.</p>
             </div>
             <div class="skills">
                 <ul class="skills-list">
@@ -273,7 +515,7 @@
     <div class="container" id="projects">
         <h2>~/projects</h2>
         <div class="projects-grid">
-            
+
             <div class="project-card onyx">
                 <h3 class="project-title">OnyxRaid</h3>
                 <div class="tech-stack">
@@ -281,9 +523,12 @@
                     <span>C#</span>
                     <span>Networking</span>
                 </div>
-                <p>A fully functioning Command and Control (C2) framework built for offensive security engagements. Designed with stealth and persistence in mind, allowing for secure and stable remote administration.</p>
+                <p>A fully functioning Command and Control (C2) framework built for offensive security engagements.
+                    Designed with stealth and persistence in mind, allowing for secure and stable remote administration.
+                </p>
                 <br>
-                <a href="#contacts">[ Request Access ]</a>
+                <a href="#" onclick="document.getElementById('accessModal').classList.add('active'); return false;">[
+                    Request Access ]</a>
             </div>
 
             <div class="project-card kyber">
@@ -292,7 +537,9 @@
                     <span>C#</span>
                     <span>Post Quantum Cryptography</span>
                 </div>
-                <p>A highly secure file encryption container application leveraging post-quantum encryption algorithms. Engineered to protect sensitive data against both classical and quantum-based cryptographic attacks.</p>
+                <p>A highly secure file encryption container application leveraging post-quantum encryption algorithms.
+                    Engineered to protect sensitive data against both classical and quantum-based cryptographic attacks.
+                </p>
                 <br>
                 <a href="https://github.com/harry-betts/KyberVault">[ View Source / Details ]</a>
             </div>
@@ -305,11 +552,13 @@
                     <span>OpenPGP</span>
                     <span>Tor</span>
                 </div>
-                <p>A synchronous, zero-knowledge ephemeral messaging network. Features end-to-end encryption over Tor hidden services, browser-side cryptographic state management, and challenge-response authentication.</p>
+                <p>A synchronous, zero-knowledge ephemeral messaging network. Features end-to-end encryption over Tor
+                    hidden services, browser-side cryptographic state management, and challenge-response authentication.
+                </p>
                 <br>
                 <a href="https://github.com/harry-betts/OnionChat">[ View Source / Details ]</a>
             </div>
-            
+
         </div>
     </div>
 
@@ -317,16 +566,56 @@
         <h2>~/contacts</h2>
         <p>Currently open for collaboration and security research opportunities.</p>
         <div class="contact-links">
+            <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">Signal</a>
             <a href="mailto:harrybetts06@proton.me">Email</a>
             <a href="https://github.com/harry-betts">GitHub</a>
             <a href="https://www.linkedin.com/in/harry-betts-3a065b408 ">LinkedIn</a>
-            <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">Signal</a>
             <a href="https://smp11.simplex.im/a#PrS_fUPwnihaELGbGQ4a4ulklmDiqax_If4LUnuQq4M">SimpleX</a>
         </div>
     </footer>
 
+    <div class="modal-backdrop" id="accessModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-path"><span>guest@onyx:</span>~/request_access.sh</div>
+                <button class="modal-close"
+                    onclick="document.getElementById('accessModal').classList.remove('active')">[X]</button>
+            </div>
+
+            <h3>Request Access</h3>
+            <p class="modal-body">OnyxRaid is not publicly distributed for IP protection reasons. Reach out via Signal for the fastest response.</p>
+
+            <div class="modal-signal">
+                <div class="modal-qr">
+                    <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">
+
+                        <!-- Place your Signal QR image in your repo and update this src -->
+                        <img src="/assets/signal-qr.png" alt="Signal QR code — username harry.726" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="modal-divider">
+                <span class="modal-divider-line"></span>
+                <span class="modal-divider-text">alternatively</span>
+                <span class="modal-divider-line"></span>
+            </div>
+
+            <a href="mailto:harrybetts06@proton.me" class="modal-email">harrybetts06@proton.me</a>
+        </div>
+    </div>
+
     <script>
         console.log("%cWelcome to the console.", "color: #00ffcc; font-size: 14px; font-weight: bold;");
+
+        const modal = document.getElementById('accessModal');
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') modal.classList.remove('active');
+        });
     </script>
 </body>
+
 </html>
