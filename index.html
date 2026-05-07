@@ -13,8 +13,9 @@
             --surface-color: #111111;
             --text-main: #e0e0e0;
             --text-muted: #888888;
-            --accent-primary: #0084ff; /* Cyan glow */
-            --accent-danger: #ff3333; /* Red glow for offensive tools */
+            --accent-primary: #0084ff; 
+            --accent-danger: #ff3333; 
+            --accent-tor: #a855f7; 
         }
 
         * {
@@ -31,7 +32,7 @@
             overflow-x: hidden;
         }
 
-        /* Glitch/Terminal Header Effect */
+
         header {
             height: 100vh;
             display: flex;
@@ -85,7 +86,7 @@
             color: var(--accent-primary);
         }
 
-        /* About Section */
+
         .about-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -114,7 +115,7 @@
             color: var(--accent-primary);
         }
 
-        /* Projects Section */
+
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -142,6 +143,7 @@
 
         .project-card.onyx::before { background-color: var(--accent-danger); }
         .project-card.kyber::before { background-color: var(--accent-primary); }
+        .project-card.onion::before { background-color: var(--accent-tor); }
 
         .project-card:hover {
             transform: translateY(-5px);
@@ -157,6 +159,11 @@
             border-color: rgba(0, 119, 255, 0.3);
         }
 
+        .project-card.onion:hover {
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
         .project-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
@@ -164,12 +171,14 @@
 
         .project-card.onyx .project-title { color: var(--accent-danger); }
         .project-card.kyber .project-title { color: var(--accent-primary); }
+        .project-card.onion .project-title { color: var(--accent-tor); }
 
         .tech-stack {
             font-size: 0.8rem;
             color: var(--text-muted);
             margin-bottom: 1.5rem;
             display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
         }
 
@@ -200,12 +209,13 @@
         .contact-links {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 2rem;
             margin-top: 2rem;
             font-size: 1.2rem;
         }
 
-        /* Animations */
+
         @keyframes typing {
             from { width: 0 }
             to { width: 100% }
@@ -215,7 +225,7 @@
             50% { border-color: var(--accent-primary); }
         }
 
-        /* Responsive */
+
         @media (max-width: 768px) {
             .about-grid, .projects-grid {
                 grid-template-columns: 1fr;
@@ -264,7 +274,6 @@
         <h2>~/projects</h2>
         <div class="projects-grid">
             
-            <!-- OnyxRaid Card -->
             <div class="project-card onyx">
                 <h3 class="project-title">OnyxRaid</h3>
                 <div class="tech-stack">
@@ -277,7 +286,6 @@
                 <a href="https://github.com/harry-betts/onyx-raid">[ View Source / Details ]</a>
             </div>
 
-            <!-- KyberVault Card -->
             <div class="project-card kyber">
                 <h3 class="project-title">KyberVault</h3>
                 <div class="tech-stack">
@@ -289,6 +297,19 @@
                 <a href="https://github.com/harry-betts/KyberVault">[ View Source / Details ]</a>
             </div>
 
+            <div class="project-card onion">
+                <h3 class="project-title">OnionChat</h3>
+                <div class="tech-stack">
+                    <span>Node.js</span>
+                    <span>WebSockets</span>
+                    <span>OpenPGP</span>
+                    <span>Tor</span>
+                </div>
+                <p>A synchronous, zero-knowledge ephemeral network. Features end-to-end encryption over Tor hidden services, browser-side cryptographic state management, and challenge-response authentication.</p>
+                <br>
+                <a href="https://github.com/harry-betts/OnionChat">[ View Source / Details ]</a>
+            </div>
+            
         </div>
     </div>
 
@@ -301,12 +322,10 @@
             <a href="https://www.linkedin.com/in/harry-betts-3a065b408 ">LinkedIn</a>
             <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">Signal</a>
             <a href="https://smp11.simplex.im/a#PrS_fUPwnihaELGbGQ4a4ulklmDiqax_If4LUnuQq4M">SimpleX</a>
-
         </div>
     </footer>
 
     <script>
-        // Simple script to handle smooth scrolling or add future interactivity
         console.log("%cWelcome to the console.", "color: #00ffcc; font-size: 14px; font-weight: bold;");
     </script>
 </body>
