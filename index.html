@@ -120,19 +120,24 @@
         }
 
         .skills {
+            background-color: rgba(17, 17, 17, 0.4);
+            border: 1px solid #1e1e1e;
+            border-radius: 8px;
+            padding: 1.75rem;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.25rem;
         }
 
         .skills-section h3 {
-            font-size: 1rem;
-            color: var(--text-main);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.95rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+            text-transform: lowercase;
+            letter-spacing: 0.5px;
             border-bottom: 1px dashed #222;
-            padding-bottom: 0.25rem;
+            padding-bottom: 0.5rem;
         }
 
         .proficiency-group {
@@ -143,59 +148,70 @@
             margin-bottom: 0;
         }
 
-        .prof-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
+        .prof-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.35rem;
-            padding: 0.1rem 0.4rem;
-            border-radius: 2px;
+            letter-spacing: 0.75px;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
-        .prof-badge.highly-proficient {
+        .prof-label::before {
+            content: "●";
+            font-size: 0.65rem;
+        }
+
+        .prof-label.highly-proficient::before {
             color: #00ffcc;
-            background: rgba(0, 255, 204, 0.05);
-            border-left: 3px solid #00ffcc;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
         }
 
-        .prof-badge.proficient {
+        .prof-label.proficient::before {
             color: var(--accent-primary);
-            background: rgba(0, 132, 255, 0.05);
-            border-left: 3px solid var(--accent-primary);
+            text-shadow: 0 0 5px rgba(0, 132, 255, 0.5);
         }
 
-        .prof-badge.learning {
+        .prof-label.learning::before {
             color: #ffaa00;
-            background: rgba(255, 170, 0, 0.05);
-            border-left: 3px solid #ffaa00;
+            text-shadow: 0 0 5px rgba(255, 170, 0, 0.5);
         }
 
         /* Hover states for specific proficiencies */
-        .proficiency-group:hover .highly-proficient + .skills-list li:hover {
+        .proficiency-group:hover .highly-proficient+.skills-list li:hover {
             border-color: #00ffcc;
             color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            background-color: rgba(0, 255, 204, 0.02);
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.15);
         }
 
-        .proficiency-group:hover .proficient + .skills-list li:hover {
+        .proficiency-group:hover .proficient+.skills-list li:hover {
             border-color: var(--accent-primary);
             color: var(--accent-primary);
-            box-shadow: 0 0 10px rgba(0, 132, 255, 0.2);
+            background-color: rgba(0, 132, 255, 0.02);
+            box-shadow: 0 0 8px rgba(0, 132, 255, 0.15);
         }
 
-        .proficiency-group:hover .learning + .skills-list li:hover {
+        .proficiency-group:hover .learning+.skills-list li:hover {
             border-color: #ffaa00;
             color: #ffaa00;
-            box-shadow: 0 0 10px rgba(255, 170, 0, 0.2);
+            background-color: rgba(255, 170, 0, 0.02);
+            box-shadow: 0 0 8px rgba(255, 170, 0, 0.15);
         }
 
         /* Interest items styling on hover */
+        .skills-section-interests h3 {
+            color: var(--accent-tor);
+        }
+
         .skills-section-interests .skills-list li:hover {
             border-color: var(--accent-tor);
             color: var(--accent-tor);
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+            background-color: rgba(168, 85, 247, 0.02);
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.15);
         }
 
         .projects-grid {
@@ -503,7 +519,8 @@
                 font-size: 2.5rem;
             }
         }
-.scroll-indicator {
+
+        .scroll-indicator {
             position: absolute;
             bottom: 3rem;
         }
@@ -512,33 +529,53 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: -4px; /* Pulls the chevrons closer together */
+            gap: -4px;
+            /* Pulls the chevrons closer together */
         }
 
-.chevron {
+        .chevron {
             width: 16px;
             height: 16px;
             border-right: 2px solid var(--text-muted);
             border-bottom: 2px solid var(--text-muted);
             transform: rotate(45deg);
             /* Increased duration from 1.5s to 3s */
-            animation: scan-down 3s infinite; 
+            animation: scan-down 3s infinite;
             opacity: 0;
         }
 
         /* Spaced out the delays to match the slower cycle */
-        .chevron:nth-child(1) { animation-delay: 0s; }
-        .chevron:nth-child(2) { animation-delay: 0.3s; }
-        .chevron:nth-child(3) { animation-delay: 0.6s; }
+        .chevron:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .chevron:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .chevron:nth-child(3) {
+            animation-delay: 0.6s;
+        }
 
         .scroll-indicator a:hover .chevron {
             border-color: var(--accent-primary);
         }
 
         @keyframes scan-down {
-            0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
-            50% { opacity: 1; border-color: var(--accent-primary); }
-            100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
+            0% {
+                opacity: 0;
+                transform: rotate(45deg) translate(-5px, -5px);
+            }
+
+            50% {
+                opacity: 1;
+                border-color: var(--accent-primary);
+            }
+
+            100% {
+                opacity: 0;
+                transform: rotate(45deg) translate(5px, 5px);
+            }
         }
     </style>
 </head>
@@ -552,35 +589,42 @@
                 <span class="typewriter">> Security & Privacy Engineering_</span>
             </div>
         </div>
-<div class="scroll-indicator">
-        <a href="#about" aria-label="Scroll down">
-            <span class="chevron"></span>
-            <span class="chevron"></span>
-            <span class="chevron"></span>
-        </a>
-    </div>
+        <div class="scroll-indicator">
+            <a href="#about" aria-label="Scroll down">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </a>
+        </div>
     </header>
 
     <div class="container" id="about">
         <h2>~/about_me</h2>
         <div class="about-grid">
             <div class="about-text">
-                <p>I'm a Software Engineering student at UTS specializing in low-level systems programming and offensive
-                    security research. My primary focus is on developing robust security tooling, exploring encryption
-                    methodologies, and analyzing system vulnerabilities.</p>
+                <p>I'm a Software Engineering student at UTS specializing in offensive and defensive security
+                    application development. My primary focus is on developing security tooling, exploring
+                    encryption methodologies, and analyzing system vulnerabilities.</p>
                 <br>
-                <p>When I'm not studying or building custom infrastructure, I'm deep diving into C/C++ memory
-                    management, post-quantum cryptography, and designing scalable architectures.</p>
+                <p>When I'm not studying or building custom infrastructure, I'm learning Rust and how to
+                    develop and use secure tooling related to it. Eventually I would like to port all of
+                    my existing portfolio projects to rust, but first, I want to make sure I have a good
+                    grasp of the language. I also enjoy periodically maintaining / updating my existing
+                    projects when I have good ideas for them or I discover a vulnerability.
+                </p>
                 <br>
-                <p>As you will see with some of my projects below, I am a strong believer in online privacy and
-                    security, and especially related open source projects. I am aiming to contribute significantly in
-                    this field in the future.</p>
+                <p>As you will see with some of my projects below, I am a strong believer in online privacy,
+                    security, and anonymity, and related open source projects. I try to contribute to these
+                    projects when I can, as I believe what they are doing is critical. My contribution history
+                    is avaliable on my <a href="https://github.com/harry-betts">GitHub</a>.
+
+                </p>
             </div>
             <div class="skills">
                 <div class="skills-section">
-                    <h3>// languages</h3>
+                    <h3>~/languages</h3>
                     <div class="proficiency-group">
-                        <span class="prof-badge highly-proficient">Highly Proficient</span>
+                        <span class="prof-label highly-proficient">Highly Proficient</span>
                         <ul class="skills-list">
                             <li>C#</li>
                             <li>HTML</li>
@@ -588,14 +632,14 @@
                         </ul>
                     </div>
                     <div class="proficiency-group">
-                        <span class="prof-badge proficient">Proficient</span>
+                        <span class="prof-label proficient">Proficient</span>
                         <ul class="skills-list">
                             <li>C++</li>
                             <li>JS</li>
                         </ul>
                     </div>
                     <div class="proficiency-group">
-                        <span class="prof-badge learning">Learning</span>
+                        <span class="prof-label learning">Learning</span>
                         <ul class="skills-list">
                             <li>Rust</li>
                         </ul>
@@ -603,11 +647,11 @@
                 </div>
 
                 <div class="skills-section skills-section-interests">
-                    <h3>// interests</h3>
+                    <h3>~/interests</h3>
                     <ul class="skills-list">
                         <li>Encryption</li>
                         <li>Privacy</li>
-                        <li>Remote Control</li>
+                        <li>Networking</li>
                     </ul>
                 </div>
             </div>
@@ -685,7 +729,8 @@
             </div>
 
             <h3>Request Access</h3>
-            <p class="modal-body">OnyxRaid is not publicly distributed for IP protection reasons. Reach out via Signal for the fastest response.</p>
+            <p class="modal-body">OnyxRaid is not publicly distributed for IP protection reasons. Reach out via Signal
+                for the fastest response.</p>
 
             <div class="modal-signal">
                 <div class="modal-qr">
