@@ -18,6 +18,7 @@
             --accent-danger: #ff3333;
             /* Reverted back to the original red for the main page */
             --accent-tor: #a855f7;
+            --accent-axeno: #2dd4bf;
             --accent-modal: #506ecd;
             /* Dedicated variable just for the modal */
             scroll-behavior: smooth;
@@ -251,6 +252,10 @@
             background-color: var(--accent-tor);
         }
 
+        .project-card.axeno::before {
+            background-color: var(--accent-axeno);
+        }
+
         .project-card:hover {
             transform: translateY(-5px);
         }
@@ -270,6 +275,11 @@
             border-color: rgba(168, 85, 247, 0.3);
         }
 
+        .project-card.axeno:hover {
+            box-shadow: 0 10px 30px rgba(45, 212, 191, 0.1);
+            border-color: rgba(45, 212, 191, 0.3);
+        }
+
         .project-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
@@ -285,6 +295,10 @@
 
         .project-card.onion .project-title {
             color: var(--accent-tor);
+        }
+
+        .project-card.axeno .project-title {
+            color: var(--accent-axeno);
         }
 
         .tech-stack {
@@ -670,7 +684,8 @@
                     <span>Networking</span>
                 </div>
                 <p>A fully functioning Command and Control (C2) framework built for offensive security engagements.
-                    Designed with stealth and persistence in mind, allowing for secure and stable remote administration.
+                    Designed with stealth and persistence in mind, allowing for secure and stable remote
+                    administration.
                 </p>
                 <br>
                 <a href="#" onclick="document.getElementById('accessModal').classList.add('active'); return false;">[
@@ -683,8 +698,9 @@
                     <span>C#</span>
                     <span>Post Quantum Cryptography</span>
                 </div>
-                <p>A highly secure file encryption container application leveraging post-quantum encryption algorithms.
-                    Engineered to protect sensitive data against both classical and quantum-based cryptographic attacks.
+                <p>A highly secure file encryption container application leveraging post-quantum encryption
+                    algorithms. Engineered to protect sensitive data against both classical and quantum-based
+                    cryptographic attacks.
                 </p>
                 <br>
                 <a href="https://github.com/harry-betts/KyberVault">[ View Source / Details ]</a>
@@ -698,11 +714,29 @@
                     <span>OpenPGP</span>
                     <span>Tor</span>
                 </div>
-                <p>A synchronous, zero-knowledge ephemeral messaging network. Features end-to-end encryption over Tor
-                    hidden services, browser-side cryptographic state management, and challenge-response authentication.
+                <p>A synchronous, zero-knowledge ephemeral messaging network. Features end-to-end encryption over
+                    Tor hidden services, browser-side cryptographic state management, and challenge-response
+                    authentication.
                 </p>
                 <br>
                 <a href="https://github.com/harry-betts/OnionChat">[ View Source / Details ]</a>
+            </div>
+
+            <div class="project-card axeno">
+                <h3 class="project-title">Axeno</h3>
+                <div class="tech-stack">
+                    <span>Rust</span>
+                    <span>React</span>
+                    <span>Tauri</span>
+                    <span>Signal Protocol</span>
+                    <span>Tor</span>
+                </div>
+                <p>A desktop messenger using the Signal Protocol for end-to-end encryption and Tor for transport via
+                    built-in Arti. No accounts, no phone numbers - contacts are added by exchanging one-time
+                    connection codes. The relay only ever forwards sealed ciphertext.
+                </p>
+                <br>
+                <a href="https://github.com/harry-betts/axeno">[ View Source / Details ]</a>
             </div>
 
         </div>
