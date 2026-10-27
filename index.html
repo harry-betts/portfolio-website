@@ -239,7 +239,7 @@
             height: 2px;
         }
 
-        .project-card.onyx::before {
+        .project-card.axeno::before {
             background-color: var(--accent-danger);
         }
 
@@ -257,7 +257,7 @@
             transform: translateY(-5px);
         }
 
-        .project-card.onyx:hover {
+        .project-card.axeno:hover {
             box-shadow: 0 10px 30px rgba(255, 51, 102, 0.1);
             border-color: rgba(255, 51, 102, 0.3);
         }
@@ -279,7 +279,7 @@
             margin-bottom: 1rem;
         }
 
-        .project-card.onyx .project-title {
+        .project-card.axeno .project-title {
             color: var(--accent-danger);
         }
 
@@ -667,20 +667,21 @@
         <h2>~/projects</h2>
         <div class="projects-grid">
 
-            <div class="project-card onyx">
-                <h3 class="project-title">OnyxRaid</h3>
+            <div class="project-card axeno">
+                <h3 class="project-title">Axeno</h3>
                 <div class="tech-stack">
-                    <span>C++</span>
-                    <span>C#</span>
-                    <span>Networking</span>
+                    <span>Rust</span>
+                    <span>Tauri</span>
+                    <span>Signal Protocol</span>
+                    <span>Tor</span>
                 </div>
-                <p>A fully functioning Command and Control (C2) framework built for offensive security engagements.
-                    Designed with stealth and persistence in mind, allowing for secure and stable remote
-                    administration.
+                <p>A private desktop messenger with no accounts, phone numbers or emails. Uses the Signal Protocol
+                    with post-quantum Kyber prekeys and sealed sender, routed over Tor through a self-hosted Rust
+                    relay.
                 </p>
                 <br>
-                <a href="#" onclick="document.getElementById('accessModal').classList.add('active'); return false;">[
-                    Request Access ]</a>
+                <a href="https://github.com/axenochat/axeno-desktop">[ Client ]</a>
+                <a href="https://github.com/axenochat/axeno-relay">[ Relay ]</a>
             </div>
 
             <div class="project-card kyber">
@@ -727,48 +728,9 @@
         </div>
     </footer>
 
-    <div class="modal-backdrop" id="accessModal">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-path"><span>guest@onyx:</span>~/request_access.sh</div>
-                <button class="modal-close"
-                    onclick="document.getElementById('accessModal').classList.remove('active')">[X]</button>
-            </div>
-
-            <h3>Request Access</h3>
-            <p class="modal-body">OnyxRaid is not publicly distributed for IP protection reasons. Reach out via Signal
-                for the fastest response.</p>
-
-            <div class="modal-signal">
-                <div class="modal-qr">
-                    <a href="https://signal.me/#eu/bDa2HuXLRr7mqjfDqFGpccTt6Nf0-PVHsk5qGn9Wr_GJ0_XkZ4NEhYP8SJBqm4pK">
-
-                        <!-- Place your Signal QR image in your repo and update this src -->
-                        <img src="/assets/signal-qr.png" alt="Signal QR code — username harry.726" />
-                    </a>
-                </div>
-            </div>
-
-            <div class="modal-divider">
-                <span class="modal-divider-line"></span>
-                <span class="modal-divider-text">alternatively</span>
-                <span class="modal-divider-line"></span>
-            </div>
-
-            <a href="mailto:harrybetts06@proton.me" class="modal-email">harrybetts06@proton.me</a>
-        </div>
-    </div>
-
     <script>
         console.log("%cWelcome to the console.", "color: #00ffcc; font-size: 14px; font-weight: bold;");
 
-        const modal = document.getElementById('accessModal');
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) modal.classList.remove('active');
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') modal.classList.remove('active');
-        });
     </script>
 </body>
 
